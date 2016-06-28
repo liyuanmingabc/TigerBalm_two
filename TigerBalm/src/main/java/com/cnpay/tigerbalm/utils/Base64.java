@@ -13,7 +13,6 @@ import java.io.OutputStream;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/3/7 0007
  */
 public class Base64 {
     static final char[] charTab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray();

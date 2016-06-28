@@ -18,7 +18,6 @@ import com.cnpay.tigerbalm.utils.ExitActivity;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/1/4
  */
 public class TbActivity extends AppCompatActivity {
 

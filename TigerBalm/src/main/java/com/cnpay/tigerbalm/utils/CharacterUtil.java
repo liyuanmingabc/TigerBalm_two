@@ -14,7 +14,6 @@ import java.util.List;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/18 0018
  */
 public class CharacterUtil {
 
@@ -119,7 +118,7 @@ public class CharacterUtil {
     }
 
     /**
-     * 将两个ASCII字符合成一个字节； 如："EF"--> 0xEF
+     * 将两个ASCII字符合成一个字节
      *
      * @param src0 byte
      * @param src1 byte
@@ -134,9 +133,7 @@ public class CharacterUtil {
     }
 
     /**
-     * 将指定字符串src，以每两个字符分割转换为16进制形式 如："2B44EFD9" --> byte[]{0x2B, 0x44, 0xEF,
-     * 0xD9}
-     *
+     * 将指定字符串src，以每两个字符分割转换为16进制形式
      * @param src String
      * @return byte[]
      */

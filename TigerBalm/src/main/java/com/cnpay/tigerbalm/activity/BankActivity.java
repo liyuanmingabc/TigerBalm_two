@@ -14,7 +14,6 @@ import android.view.View;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/1/4
  */
 public class BankActivity extends TbActivity implements View.OnTouchListener, GestureDetector.OnGestureListener {
 
@@ -44,7 +43,7 @@ public class BankActivity extends TbActivity implements View.OnTouchListener, Ge
     }
 
     /**
-     * 有Bug 暂时不用。 Bug ： ScrollView 当做做页面->上下滑动失效。ACTION_UP
+     * 有Bug 暂时不用Bug ScrollView当做做页面上下滑动失效ACTION_UP
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {

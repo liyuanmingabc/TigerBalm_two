@@ -29,7 +29,6 @@ public class MathUtil {
 	 * @param number
 	 * @return
 	 * @author liyuanming
-	 * @date 2014年10月17日-下午1:52:46
 	 */
 	public static Double backTwoRound(Double number) {
 		if (null != number) {

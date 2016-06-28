@@ -26,7 +26,6 @@ import java.lang.reflect.Field;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/4/15
  */
 public class PowerImageView extends ImageView implements View.OnClickListener {
 

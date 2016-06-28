@@ -18,7 +18,6 @@ import java.nio.channels.FileChannel;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/4/29
  */
 public class FileUtil {
 

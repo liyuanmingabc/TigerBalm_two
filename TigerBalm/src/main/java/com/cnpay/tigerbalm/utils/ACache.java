@@ -43,7 +43,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * 深圳华夏通宝信息技术有限公司
  * 
  * @version V1.0
- * @date 2015年1月29日
  * @author liyuanming
  *
  */
@@ -617,7 +616,7 @@ public class ACache {
 	}
 
 	/**
-	 * @title 缓存管理器
+	 *  缓存管理器
 	 * @version 1.0
 	 */
 	public class ACacheManager {

@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/22 0022
  */
 public class WifiUtil {
 
@@ -28,7 +27,6 @@ public class WifiUtil {
      * 描述：打开wifi.
      * @param context
      * @param enabled
-     * @return
      */
     public static void setWifiEnabled(Context context,boolean enabled){
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -43,7 +41,6 @@ public class WifiUtil {
      *
      * 描述：是否有网络连接.
      * @param context
-     * @return
      */
     public static boolean isConnectivity(Context context) {
 
@@ -77,7 +74,6 @@ public class WifiUtil {
      *
      * 描述：得到所有的WiFi列表.
      * @param context
-     * @return
      */
     public static List<ScanResult> getScanResults(Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -99,7 +95,7 @@ public class WifiUtil {
      * 描述：根据SSID过滤扫描结果.
      * @param context
      * @param bssid
-     * @return
+     * @return ScanResult
      */
     public static ScanResult getScanResultsByBSSID(Context context,String bssid) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -127,7 +123,7 @@ public class WifiUtil {
      *
      * 描述：获取连接的WIFI信息.
      * @param context
-     * @return
+     * @return WifiInfo
      */
     public static WifiInfo getConnectionInfo(Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);

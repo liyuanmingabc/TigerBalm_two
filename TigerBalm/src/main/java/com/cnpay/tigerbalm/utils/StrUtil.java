@@ -61,7 +61,6 @@ public class StrUtil {
 	 * @param lo
 	 * @return
 	 * @author liyuanming
-	 * @date 2014年9月16日-上午9:54:41
 	 */
 	public static Long parseEmpty(Long lo) {
 		if (null == lo) {
@@ -116,11 +115,11 @@ public class StrUtil {
 	}
 
 	/**
-	 * 隐藏用户名 位数>2
+	 * 隐藏用户名 位数 2
 	 * 只显示第一位和最后一位
 	 * @author liyuanming
 	 * @param userName
-	 * @return
+	 * @return String
 	 */
 	public static String userNameEHide(String userName) {
 		if (!isEmpty(userName)) {

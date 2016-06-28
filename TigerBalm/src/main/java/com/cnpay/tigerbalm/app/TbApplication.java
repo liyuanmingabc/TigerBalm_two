@@ -14,7 +14,6 @@ import com.yolanda.nohttp.NoHttp;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/1/4
  */
 public class TbApplication extends Application {
 

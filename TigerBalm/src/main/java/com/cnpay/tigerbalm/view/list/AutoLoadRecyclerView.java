@@ -13,7 +13,6 @@ import com.cnpay.tigerbalm.view.list.listener.LoadMoreListener;
 
 /**
  * 自动加载更多数据
- * <p/>
  * RecyclerView
  */
 public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCallBack {

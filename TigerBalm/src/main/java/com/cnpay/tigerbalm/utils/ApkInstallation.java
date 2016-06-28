@@ -18,7 +18,6 @@ import java.io.PrintWriter;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/5/19
  */
 public class ApkInstallation {
     /**

@@ -16,7 +16,6 @@ import java.util.Map;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2015/12/25
  */
 public class IdcardUtils {
 

@@ -24,7 +24,6 @@ import com.cnpay.tigerbalm.R;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/3/4 0004
  */
 public class ClearEditText extends EditText implements View.OnFocusChangeListener,TextWatcher{
 

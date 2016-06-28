@@ -190,8 +190,6 @@ public class PreferencesUtil {
 	/**
 	 * 把集合转换成字符串
 	 *
-	 * @param
-	 * @return
 	 * @throws IOException
 	 */
 	public static String mapToString(Map<String, Object> WeatherMap) throws IOException {

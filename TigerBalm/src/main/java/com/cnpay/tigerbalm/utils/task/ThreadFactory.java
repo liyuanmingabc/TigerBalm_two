@@ -24,9 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/19 0019
  */
-
 public class ThreadFactory {
     /** 任务执行器. */
     public static Executor mExecutorService = null;

@@ -9,9 +9,7 @@ package com.cnpay.tigerbalm.net;
  *  版 权 所 有:     版权所有(C)2010-2014
  *  公             司:     深圳华夏通宝信息技术有限公司
  *  @version      V1.0
- *  @date              2014年12月19日
  *  @author        liyuanming
- *
  */
 public class HttpPrompt {
 	/** The Constant CONNECTEXCEPTION. */

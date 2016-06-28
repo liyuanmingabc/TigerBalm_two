@@ -14,7 +14,6 @@ import java.util.List;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/19 0019
  */
 public abstract class TaskListListener extends TaskListener{
     /**

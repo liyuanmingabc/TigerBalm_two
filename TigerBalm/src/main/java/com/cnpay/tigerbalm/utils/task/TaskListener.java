@@ -12,13 +12,11 @@ package com.cnpay.tigerbalm.utils.task;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/19 0019
  */
 public class TaskListener {
     /**
      * Gets the.
-     *
-     * @return 返回的结果对象
+     * 返回的结果对象
      */
     public void get(){};
 

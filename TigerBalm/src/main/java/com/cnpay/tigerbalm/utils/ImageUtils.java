@@ -15,7 +15,6 @@ import com.bumptech.glide.RequestManager;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/4/27
  */
 public class ImageUtils {
 

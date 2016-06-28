@@ -208,7 +208,6 @@ public class DialogUtil {
      * @param context
      * @param icon
      * @param title   对话框标题内容
-     * @param view    对话框提示内容
      */
     public static AlertDialogFragment showAlertDialog(Context context, int icon, String title, String message) {
         FragmentActivity activity = (FragmentActivity) context;
@@ -498,7 +497,6 @@ public class DialogUtil {
      * @param context                   the context
      * @param indeterminateDrawable
      * @param message                   the message
-     * @param abDialogOnRefreshListener
      */
     public static LoadDialogFragment showLoadPanel(Context context, int indeterminateDrawable, String message,
                                                    com.cnpay.tigerbalm.utils.dialog.fragment.DialogFragment.DialogOnLoadListener abDialogOnLoadListener) {
@@ -523,7 +521,6 @@ public class DialogUtil {
      * @param context                   the context
      * @param indeterminateDrawable
      * @param message                   the message
-     * @param abDialogOnRefreshListener
      */
     public static RefreshDialogFragment showRefreshDialog(Context context, int indeterminateDrawable, String message) {
         FragmentActivity activity = (FragmentActivity) context;

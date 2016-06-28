@@ -6,11 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * MD5
- *
- * @author: Jason Jiang
- * @Date: 2014-1-13 下午03:46:58
  */
-
 public class MD5Util {
 
     /**

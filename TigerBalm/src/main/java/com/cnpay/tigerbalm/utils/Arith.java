@@ -12,7 +12,6 @@ import java.math.BigDecimal;
  *
  * @author liyuanming
  * @version V1.0
- * @date 2016/3/30
  */
 public class Arith {
     //默认除法运算精度

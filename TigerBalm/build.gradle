@@ -12,9 +12,13 @@ android {
     }
     buildTypes {
         release {
-//            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
     }
 }
 
@@ -50,3 +54,4 @@ dependencies {
 
 
 }
+apply from: "bintrayUpload.gradle"

@@ -30,7 +30,6 @@ import java.util.UUID;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/2/17 0017
  */
 public class BitmapUtil {
     /**设置指定文件路径*/

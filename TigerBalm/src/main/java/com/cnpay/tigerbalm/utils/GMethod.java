@@ -10,7 +10,6 @@ package com.cnpay.tigerbalm.utils;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/19 0019
  */
 public class GMethod {
     /**

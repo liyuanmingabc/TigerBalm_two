@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
 
 /**
  * @author liyuanming
- * @date 2014年9月4日-下午5:15:15
  */
 public class SimpleUtil {
 
@@ -135,7 +134,6 @@ public class SimpleUtil {
      * @param dou
      * @return
      * @author liyuanming
-     * @date 2014年10月23日-下午2:30:56
      */
     public static Double toDouble(String dou) {
         if (!StrUtil.isEmpty(dou)) {
@@ -411,7 +409,7 @@ public class SimpleUtil {
      * 获取扩展存储路径，TF卡、U盘
      */
     public static ArrayList<String> getStorageDirectory() {
-        ArrayList<String> dir = new ArrayList<>();
+        ArrayList<String> dir = new ArrayList<String>();
         try {
             Runtime runtime = Runtime.getRuntime();
             Process proc = runtime.exec("mount");
@@ -455,7 +453,6 @@ public class SimpleUtil {
      *
      * @param oldPath String 原文件路径 如：c:/fqf
      * @param newPath String 复制后路径 如：f:/fqf/ff
-     * @return boolean
      */
     public static void copyFolder(String oldPath, String newPath) {
 

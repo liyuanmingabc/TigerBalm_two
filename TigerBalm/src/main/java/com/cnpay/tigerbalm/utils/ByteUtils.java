@@ -13,7 +13,6 @@ import java.util.Arrays;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/18 0018
  */
 public class ByteUtils {
 

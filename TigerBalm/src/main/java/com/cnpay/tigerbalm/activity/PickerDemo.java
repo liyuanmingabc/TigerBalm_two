@@ -16,11 +16,10 @@ import cn.qqtheme.framework.picker.DatePicker;
 import cn.qqtheme.framework.picker.TimePicker;
 
 /**
- * @author zenghonghua
- * @包名: com.cnpay.tigerbalm.activity
- * @修改记录:
- * @公司: 深圳华夏通宝信息技术有限公司
- * @date 2016/3/2 0002
+ * author zenghonghua
+ * 包名: com.cnpay.tigerbalm.activity
+ * 修改记录:
+ * 公司: 深圳华夏通宝信息技术有限公司
  */
 public class PickerDemo {
     private static PickerDemo picker;

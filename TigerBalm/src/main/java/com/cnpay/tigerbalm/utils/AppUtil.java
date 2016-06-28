@@ -36,7 +36,6 @@ import java.util.regex.Pattern;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/19 0019
  */
 public class AppUtil {
     /**
@@ -169,7 +168,7 @@ public class AppUtil {
 
     /**
      * Gps是否打开
-     * 需要<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />权限
+     * 需要 android.permission.ACCESS_FINE_LOCATION 权限
      *
      * @param context the context
      * @return true, if is gps enabled

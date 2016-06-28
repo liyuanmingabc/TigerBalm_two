@@ -21,7 +21,6 @@ import com.cnpay.tigerbalm.R;
  *
  * @author yuyucheng
  * @version V1.0
- * @date 2016/1/18 0018
  */
 public class ToastUtil {
     /** 上下文. */

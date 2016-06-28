@@ -2,7 +2,6 @@ package com.cnpay.tigerbalm.view.list.listener;
 
 /**
  * 加载数据 监听
- * <p/>
  * 数据回调操作
  */
 public interface LoadResultCallBack {

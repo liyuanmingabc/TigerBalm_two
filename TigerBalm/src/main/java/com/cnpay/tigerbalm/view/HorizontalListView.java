@@ -16,7 +16,6 @@ import java.util.Queue;
 
 /**
  * 水平ListView
- * <p/>
  * Created by zenghonghua on 2016/5/9 0009.
  */
 public class HorizontalListView extends AdapterView<ListAdapter> {
