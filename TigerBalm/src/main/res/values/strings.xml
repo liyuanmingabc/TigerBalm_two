@@ -1,0 +1,5 @@
+<resources>
+    <string name="titlebar_right_ibtn">右侧按钮</string>
+    <string name="titlebar_left_ibtn">左侧按钮</string>
+    <string name="titlebar_title">标题</string>
+</resources>
