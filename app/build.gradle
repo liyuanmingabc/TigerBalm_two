@@ -21,7 +21,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':TigerBalm')
+//    compile project(':TigerBalm')
+    compile 'com.cnpay:TigerBalm:1.0'
+
     compile files('libs/xyProt.jar')
     compile files('libs/VMResponse_0.3.jar')
     //
