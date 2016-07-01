@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShapeImageView">
+        <attr format="enum" name="shape_mode">
+            <enum name="shape" value="1"/>
+            <enum name="circle" value="2"/>
+        </attr>
+        <attr format="dimension" name="round_radius"/>
+        <attr format="dimension" name="frame_width"/>
+        <attr format="color|reference" name="frame_color"/>
+    </declare-styleable>
+    <string name="app_name">FlyShapeImageView</string>
+</resources>
