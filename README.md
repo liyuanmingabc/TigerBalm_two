@@ -10,4 +10,4 @@ maven {
 }
 
 modle
-compile 'com.cnpay:TigerBalm:1.0'
+compile 'com.cnpay:TigerBalm:1.0.2'
