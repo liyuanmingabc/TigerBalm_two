@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 
 /**
  * APK安装/卸载
@@ -86,52 +91,94 @@ public class ApkInstallation {
      * 静默安装
      */
     private static boolean clientInstall(String apkPath) {
-        PrintWriter PrintWriter = null;
-        Process process = null;
+        boolean result = false;
+        DataOutputStream dataOutputStream = null;
+        BufferedReader errorStream = null;
         try {
-            process = Runtime.getRuntime().exec("su");
-            PrintWriter = new PrintWriter(process.getOutputStream());
-            PrintWriter.println("chmod 777 " + apkPath);
-            PrintWriter.println("export LD_LIBRARY_PATH=/vendor/lib:/system/lib");
-            PrintWriter.println("pm install -r " + apkPath);
-//			PrintWriter.println("exit");
-            PrintWriter.flush();
-            PrintWriter.close();
-            int value = process.waitFor();
-            return returnResult(value);
+            // 申请su权限
+            Process process = Runtime.getRuntime().exec("su");
+            dataOutputStream = new DataOutputStream(process.getOutputStream());
+            // 执行pm install命令
+            String command = "pm install -r " + apkPath + "\n";
+            dataOutputStream.write(command.getBytes(Charset.forName("utf-8")));
+            dataOutputStream.flush();
+            dataOutputStream.writeBytes("exit\n");
+            dataOutputStream.flush();
+            process.waitFor();
+            errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String msg = "";
+            String line;
+            // 读取命令的执行结果
+            while ((line = errorStream.readLine()) != null) {
+                msg += line;
+            }
+            TbLog.d("install msg is " + msg);
+            // 如果执行结果中包含Failure字样就认为是安装失败，否则就认为安装成功
+            if (!msg.contains("Failure")) {
+                result = true;
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            TbLog.e(e.getMessage(), e);
         } finally {
-            if (process != null) {
-                process.destroy();
+            try {
+                if (dataOutputStream != null) {
+                    dataOutputStream.close();
+                }
+                if (errorStream != null) {
+                    errorStream.close();
+                }
+            } catch (IOException e) {
+                TbLog.e(e.getMessage(), e);
             }
         }
-        return false;
+        return result;
     }
 
     /**
      * 静默卸载
      */
     private static boolean clientUninstall(String packageName) {
-        PrintWriter PrintWriter = null;
-        Process process = null;
+        boolean result = false;
+        DataOutputStream dataOutputStream = null;
+        BufferedReader errorStream = null;
         try {
-            process = Runtime.getRuntime().exec("su");
-            PrintWriter = new PrintWriter(process.getOutputStream());
-            PrintWriter.println("LD_LIBRARY_PATH=/vendor/lib:/system/lib ");
-            PrintWriter.println("pm uninstall " + packageName);
-            PrintWriter.flush();
-            PrintWriter.close();
-            int value = process.waitFor();
-            return returnResult(value);
+            // 申请su权限
+            Process process = Runtime.getRuntime().exec("su");
+            dataOutputStream = new DataOutputStream(process.getOutputStream());
+            // 执行pm install命令
+            String command = "pm uninstall " + packageName + "\n";
+            dataOutputStream.write(command.getBytes(Charset.forName("utf-8")));
+            dataOutputStream.flush();
+            dataOutputStream.writeBytes("exit\n");
+            dataOutputStream.flush();
+            process.waitFor();
+            errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String msg = "";
+            String line;
+            // 读取命令的执行结果
+            while ((line = errorStream.readLine()) != null) {
+                msg += line;
+            }
+            TbLog.d("uninstall msg is " + msg);
+            // 如果执行结果中包含Failure字样就认为是安装失败，否则就认为安装成功
+            if (!msg.contains("Failure")) {
+                result = true;
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            TbLog.e(e.getMessage(), e);
         } finally {
-            if (process != null) {
-                process.destroy();
+            try {
+                if (dataOutputStream != null) {
+                    dataOutputStream.close();
+                }
+                if (errorStream != null) {
+                    errorStream.close();
+                }
+            } catch (IOException e) {
+                TbLog.e(e.getMessage(), e);
             }
         }
-        return false;
+        return result;
     }
 
     /**
