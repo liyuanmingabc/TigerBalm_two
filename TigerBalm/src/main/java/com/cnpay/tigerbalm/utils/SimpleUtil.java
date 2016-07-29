@@ -1,6 +1,6 @@
 package com.cnpay.tigerbalm.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
@@ -115,7 +115,7 @@ public class SimpleUtil {
      *
      * @return 当前应用的版本号 PackageInfo
      */
-    public static PackageInfo getVersion(Activity activity) {
+    public static PackageInfo getVersion(Context activity) {
         try {
             PackageManager manager = activity.getPackageManager();
             PackageInfo info = manager.getPackageInfo(activity.getPackageName(), 0);
