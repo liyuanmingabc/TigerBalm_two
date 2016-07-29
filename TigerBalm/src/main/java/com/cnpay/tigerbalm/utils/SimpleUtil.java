@@ -111,19 +111,18 @@ public class SimpleUtil {
 
 
     /**
-     * 获取版本号
+     * 获取版本信息
      *
-     * @return 当前应用的版本号
+     * @return 当前应用的版本号 PackageInfo
      */
-    public static String getVersion(Activity activity) {
+    public static PackageInfo getVersion(Activity activity) {
         try {
             PackageManager manager = activity.getPackageManager();
             PackageInfo info = manager.getPackageInfo(activity.getPackageName(), 0);
-            String version = info.versionName;
-            return version;
+            return info;
         } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return null;
         }
     }
 
