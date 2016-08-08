@@ -25,6 +25,11 @@ public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCall
 
     private Context mContext;
 
+    /**
+     * 最后几个ITEM 自动加载
+     */
+    private int lastCount = 2;
+
     public AutoLoadRecyclerView(Context context) {
         this(context, null);
         this.mContext = context;
@@ -71,6 +76,15 @@ public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCall
     }
 
     /**
+     * 设置最后 -
+     * @param count
+     */
+    public void setLastCount(int count) {
+        if (count != 0)
+            this.lastCount = count;
+    }
+
+    /**
      * 滑动自动加载监听器
      */
     private class AutoLoadScrollListener extends OnScrollListener {
@@ -104,14 +118,14 @@ public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCall
                 if (layoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL) {
                     //有回调接口，并且不是加载状态，并且剩下2个item，并且向右滑动，则自动加载
                     if (loadMoreListener != null && !isLoadingMore && lastVisibleItem >= totalItemCount -
-                            2 && dx > 0) {
+                            lastCount && dx > 0) {
                         loadMoreListener.loadMore();
                         isLoadingMore = true;
                     }
                 } else {
-                    //有回调接口，并且不是加载状态，并且剩下2个item，并且向下滑动，则自动加载
+                    //有回调接口，并且不是加载状态，并且剩下lastCount个item，并且向下滑动，则自动加载
                     if (loadMoreListener != null && !isLoadingMore && lastVisibleItem >= totalItemCount -
-                            2 && dy > 0) {
+                            lastCount && dy > 0) {
                         loadMoreListener.loadMore();
                         isLoadingMore = true;
                     }
