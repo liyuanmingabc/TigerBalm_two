@@ -10,4 +10,7 @@ maven {
 }
 
 modle
-compile 'com.cnpay:TigerBalm:1.0.2'
+
+新增-百分比布局
+
+compile 'com.cnpay:TigerBalm:1.0.6'

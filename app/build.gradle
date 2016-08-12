@@ -24,8 +24,8 @@ dependencies {
 //    compile project(':TigerBalm')
     compile 'com.cnpay:TigerBalm:1.0'
 
-    compile files('libs/xyProt.jar')
-    compile files('libs/VMResponse_0.3.jar')
+//    compile files('libs/xyProt.jar')
+//    compile files('libs/VMResponse_0.3.jar')
     //
     //    compile 'de.greenrobot:greendao:2.0.0'
     //    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
