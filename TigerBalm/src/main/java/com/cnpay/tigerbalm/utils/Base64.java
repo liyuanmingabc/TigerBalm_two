@@ -5,27 +5,33 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      Base64
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公            司:     深圳华夏通宝信息技术有限公司
- *
- * @author yuyucheng
- * @version V1.0
  */
 public class Base64 {
-    static final char[] charTab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray();
+    /**
+     *
+     */
+    static final char[] CHAR_TAB = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray();
 
     public Base64() {
     }
 
+    /**
+     * @param data data
+     * @return String
+     */
     public static String encode(byte[] data) {
-        return encode(data, 0, data.length, (StringBuffer)null).toString();
+        return encode(data, 0, data.length, /*(StringBuffer)*/null).toString();
     }
 
+    /**
+     * @param data  data
+     * @param start start
+     * @param len   len
+     * @param buf   buf
+     * @return StringBuffer
+     */
     public static StringBuffer encode(byte[] data, int start, int len, StringBuffer buf) {
-        if(buf == null) {
+        if (buf == null) {
             buf = new StringBuffer(data.length * 3 / 2);
         }
 
@@ -34,44 +40,48 @@ public class Base64 {
         int n = 0;
 
         int d;
-        while(i <= end) {
+        while (i <= end) {
             d = (data[i] & 255) << 16 | (data[i + 1] & 255) << 8 | data[i + 2] & 255;
-            buf.append(charTab[d >> 18 & 63]);
-            buf.append(charTab[d >> 12 & 63]);
-            buf.append(charTab[d >> 6 & 63]);
-            buf.append(charTab[d & 63]);
+            buf.append(CHAR_TAB[d >> 18 & 63]);
+            buf.append(CHAR_TAB[d >> 12 & 63]);
+            buf.append(CHAR_TAB[d >> 6 & 63]);
+            buf.append(CHAR_TAB[d & 63]);
             i += 3;
-            if(n++ >= 14) {
+            if (n++ >= 14) {
                 n = 0;
                 buf.append("\r\n");
             }
         }
 
-        if(i == start + len - 2) {
+        if (i == start + len - 2) {
             d = (data[i] & 255) << 16 | (data[i + 1] & 255) << 8;
-            buf.append(charTab[d >> 18 & 63]);
-            buf.append(charTab[d >> 12 & 63]);
-            buf.append(charTab[d >> 6 & 63]);
+            buf.append(CHAR_TAB[d >> 18 & 63]);
+            buf.append(CHAR_TAB[d >> 12 & 63]);
+            buf.append(CHAR_TAB[d >> 6 & 63]);
             buf.append("=");
-        } else if(i == start + len - 1) {
+        } else if (i == start + len - 1) {
             d = (data[i] & 255) << 16;
-            buf.append(charTab[d >> 18 & 63]);
-            buf.append(charTab[d >> 12 & 63]);
+            buf.append(CHAR_TAB[d >> 18 & 63]);
+            buf.append(CHAR_TAB[d >> 12 & 63]);
             buf.append("==");
         }
 
         return buf;
     }
 
+    /**
+     * @param c c
+     * @return int
+     */
     static int decode(char c) {
-        if(c >= 65 && c <= 90) {
+        if (c >= 65 && c <= 90) {
             return c - 65;
-        } else if(c >= 97 && c <= 122) {
+        } else if (c >= 97 && c <= 122) {
             return c - 97 + 26;
-        } else if(c >= 48 && c <= 57) {
+        } else if (c >= 48 && c <= 57) {
             return c - 48 + 26 + 26;
         } else {
-            switch(c) {
+            switch (c) {
                 case '+':
                     return 62;
                 case '/':
@@ -84,6 +94,10 @@ public class Base64 {
         }
     }
 
+    /**
+     * @param s s
+     * @return byte[]
+     */
     public static byte[] decode(String s) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -96,27 +110,32 @@ public class Base64 {
         return bos.toByteArray();
     }
 
+    /**
+     * @param s  s
+     * @param os os
+     * @throws IOException IOException
+     */
     public static void decode(String s, OutputStream os) throws IOException {
         int i = 0;
         int len = s.length();
 
-        while(true) {
-            while(i < len && s.charAt(i) <= 32) {
+        while (true) {
+            while (i < len && s.charAt(i) <= 32) {
                 ++i;
             }
 
-            if(i == len) {
+            if (i == len) {
                 break;
             }
 
             int tri = (decode(s.charAt(i)) << 18) + (decode(s.charAt(i + 1)) << 12) + (decode(s.charAt(i + 2)) << 6) + decode(s.charAt(i + 3));
             os.write(tri >> 16 & 255);
-            if(s.charAt(i + 2) == 61) {
+            if (s.charAt(i + 2) == 61) {
                 break;
             }
 
             os.write(tri >> 8 & 255);
-            if(s.charAt(i + 3) == 61) {
+            if (s.charAt(i + 3) == 61) {
                 break;
             }
 

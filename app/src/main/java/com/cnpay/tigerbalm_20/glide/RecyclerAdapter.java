@@ -1,3 +1,4 @@
+/*
 package com.cnpay.tigerbalm_20.glide;
 
 import android.content.Context;
@@ -16,6 +17,7 @@ import com.cnpay.tigerbalm_20.R;
 
 import java.util.ArrayList;
 
+*/
 /**
  * 包            名:      com.cnpay.tigerbalm_20.glide
  * 类            名:      RecyclerAdapter
@@ -26,7 +28,8 @@ import java.util.ArrayList;
  * @author liyuanming
  * @version V1.0
  * @date 2016/4/28
- */
+ *//*
+
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myholder> {
 
     private LoadFinishCallBack mLoadFinisCallBack;
@@ -121,3 +124,4 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myhold
         }
     }
 }
+*/

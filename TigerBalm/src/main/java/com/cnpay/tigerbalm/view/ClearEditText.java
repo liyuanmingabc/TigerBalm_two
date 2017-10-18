@@ -15,7 +15,6 @@ import android.widget.EditText;
 import com.cnpay.tigerbalm.R;
 
 /**
- *
  * 包            名:      com.cnpay.tigerbalm.view
  * 类            名:      ClearEditText
  * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
@@ -25,7 +24,7 @@ import com.cnpay.tigerbalm.R;
  * @author yuyucheng
  * @version V1.0
  */
-public class ClearEditText extends EditText implements View.OnFocusChangeListener,TextWatcher{
+public class ClearEditText extends EditText implements View.OnFocusChangeListener, TextWatcher {
 
     /**
      * 删除按钮的引用
@@ -50,12 +49,14 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         init();
     }
 
-
+    /**
+     * 初始化
+     */
     private void init() {
         //获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
-//        	throw new NullPointerException("You can add drawableRight attribute in XML");
+            // throw new NullPointerException("You can add drawableRight attribute in XML");
             mClearDrawable = getResources().getDrawable(R.drawable.delete_selector);
         }
 
@@ -107,7 +108,8 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
 
     /**
      * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
-     * @param visible
+     *
+     * @param visible visible
      */
     protected void setClearIconVisible(boolean visible) {
         Drawable right = visible ? mClearDrawable : null;
@@ -122,7 +124,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
     @Override
     public void onTextChanged(CharSequence s, int start, int count,
                               int after) {
-        if(hasFoucs){
+        if (hasFoucs) {
             setClearIconVisible(s.length() > 0);
         }
     }
@@ -138,21 +140,21 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
 
     }
 
-
     /**
      * 设置晃动动画
      */
-    public void setShakeAnimation(){
+    public void setShakeAnimation() {
         this.setAnimation(shakeAnimation(5));
     }
 
 
     /**
      * 晃动动画
+     *
      * @param counts 1秒钟晃动多少下
-     * @return
+     * @return Animation
      */
-    public static Animation shakeAnimation(int counts){
+    public static Animation shakeAnimation(int counts) {
         Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);
         translateAnimation.setInterpolator(new CycleInterpolator(counts));
         translateAnimation.setDuration(1000);

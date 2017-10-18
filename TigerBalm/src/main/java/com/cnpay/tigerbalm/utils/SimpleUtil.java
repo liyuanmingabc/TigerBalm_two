@@ -16,7 +16,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,23 +24,25 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
- * @author liyuanming
+ * SimpleUtil
  */
 public class SimpleUtil {
 
+    /**
+     * 点击时间记录
+     */
     private static long lastClickTime;
 
     /**
      * BUTTON 防爆点击 1s
      *
-     * @param ms
-     * @return
+     * @param ms ms
+     * @return boolean
      */
-    public synchronized static boolean isFastClick(long ms) {
+    public static synchronized boolean isFastClick(long ms) {
         long time = System.currentTimeMillis();
         if (time - lastClickTime < ms) {
             return true;
@@ -50,57 +51,45 @@ public class SimpleUtil {
         return false;
     }
 
-    /**
-     * 是否为数字
-     *
-     * @param str
-     * @return true 为数字
-     */
-    public static boolean isNumeric(String str) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        Matcher isNum = pattern.matcher(str);
-        if (!isNum.matches()) {
-            return false;
-        }
-        return true;
-    }
-
 
     /**
      * 返回mac值
      *
-     * @return
+     * @return String
      */
     public static String getMacAddress() {
         String result = "";
-        String Mac = "";
+        String mac = "";
         result = callCmd("busybox ifconfig", "HWaddr");
         if (result == null) {
             return "网络出错，请检查网络";
         }
         if (result.length() > 0 && result.contains("HWaddr")) {
-            Mac = result.substring(result.indexOf("HWaddr") + 6, result.length() - 1);
-            if (Mac.length() > 1) {
-                result = Mac.toUpperCase();
+            mac = result.substring(result.indexOf("HWaddr") + 6, result.length() - 1);
+            if (mac.length() > 1) {
+                result = mac.toUpperCase();
             }
         }
         return result.trim();
     }
 
+    /**
+     * @param cmd    cmd
+     * @param filter filter
+     * @return String
+     */
     private static String callCmd(String cmd, String filter) {
         String result = "";
-        String line = "";
+        String line;
         try {
             Process proc = Runtime.getRuntime().exec(cmd);
             InputStreamReader is = new InputStreamReader(proc.getInputStream());
             BufferedReader br = new BufferedReader(is);
-
             //执行命令cmd，只取结果中含有filter的这一行
-            while ((line = br.readLine()) != null && line.contains(filter) == false) {
+            while ((line = br.readLine()) != null && !line.contains(filter)) {
                 //result += line;
                 Log.i("test", "line: " + line);
             }
-
             result = line;
             Log.i("test", "result: " + result);
         } catch (Exception e) {
@@ -113,87 +102,17 @@ public class SimpleUtil {
     /**
      * 获取版本信息
      *
+     * @param activity activity
      * @return 当前应用的版本号 PackageInfo
      */
     public static PackageInfo getVersion(Context activity) {
         try {
             PackageManager manager = activity.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(activity.getPackageName(), 0);
-            return info;
+            return manager.getPackageInfo(activity.getPackageName(), 0);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-
-    /**
-     * String 转Double
-     *
-     * @param dou
-     * @return
-     * @author liyuanming
-     */
-    public static Double toDouble(String dou) {
-        if (!StrUtil.isEmpty(dou)) {
-            return Double.parseDouble(dou);
-        }
-        return 0.00;
-    }
-
-    /**
-     * 判断手机号是否正确
-     *
-     * @param mobiles
-     * @return
-     */
-    public static boolean isMobileNO(String mobiles) {
-        // 181-183手机号无法通过，修改18[0,5-9] 18[^4,\\D]
-        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[^4,\\D]))\\d{8}$");
-        Matcher m = p.matcher(mobiles);
-        return m.matches();
-    }
-
-    /**
-     * 邮箱格式
-     *
-     * @param email
-     * @return
-     */
-    public static boolean isEmail(String email) {
-        Pattern pattern = Pattern
-                .compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    /**
-     * 判断是否是身份证
-     * 定义判别用户身份证号的正则表达式（要么是15位，要么是18位，最后一位可以为字母）
-     *
-     * @param idNum
-     * @return
-     * @author liyuanming
-     */
-    public static boolean isIDNum(String idNum) {
-        Pattern idNumPattern = Pattern.compile("(\\d{14}[0-9a-zA-Z])|(\\d{17}[0-9a-zA-Z])");
-        //通过Pattern获得Matcher
-        Matcher idNumMatcher = idNumPattern.matcher(idNum);
-        return idNumMatcher.matches();
-    }
-
-    /**
-     * 密码验证 数字、字母和符号，长度最小6，最大20
-     *
-     * @param pass
-     * @return
-     */
-    public static boolean isPass(String pass) {
-        String reg = "(?![^a-zA-Z0-9]+$)(?![^a-zA-Z/D]+$)(?![^0-9/D]+$).{6,20}$";
-        // String reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
-        Pattern pattern = Pattern.compile(reg);
-        Matcher matcher = pattern.matcher(pass);
-        return matcher.matches();
     }
 
     /**
@@ -213,7 +132,7 @@ public class SimpleUtil {
     /**
      * 设置ListView的高度
      *
-     * @param listView
+     * @param listView listView
      */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
@@ -233,9 +152,9 @@ public class SimpleUtil {
     }
 
     /**
-     * 设置ListView的高�?+ 手动增加高度
+     * 设置ListView的高度+ 手动增加高度
      *
-     * @param listView
+     * @param listView listView
      * @param size     额外增加高度
      */
     public static void setListViewHeightBasedOnChildren(GridView listView, int size) {
@@ -272,7 +191,7 @@ public class SimpleUtil {
     /**
      * 用来获取手机拨号上网（包括CTWAP和CTNET）时由PDSN分配给手机终端的源IP地址 4.0默认IPV6
      *
-     * @return
+     * @return String
      */
     public static String getPsdnIpv6() {
         try {
@@ -281,7 +200,7 @@ public class SimpleUtil {
                 for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
-                        return inetAddress.getHostAddress().toString();
+                        return inetAddress.getHostAddress();
                     }
                 }
             }
@@ -294,7 +213,7 @@ public class SimpleUtil {
     /**
      * 用来获取手机拨号上网（包括CTWAP和CTNET）时由PDSN分配给手机终端的源IP地址 IPV4
      *
-     * @return
+     * @return String
      */
     public static String getPsdnIpv4() {
         try {
@@ -302,8 +221,8 @@ public class SimpleUtil {
                 NetworkInterface intf = en.nextElement();
                 for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof InetAddress) {
-                        return inetAddress.getHostAddress().toString();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress();
                     }
                 }
             }
@@ -316,15 +235,15 @@ public class SimpleUtil {
     /**
      * 获取sd卡路径 双sd卡时，获得的是外置sd卡
      *
-     * @return
+     * @return String
      */
     public static String getSDCardPath() {
         String cmd = "cat /proc/mounts";
-        Runtime run = Runtime.getRuntime();// 返回与当前 Java 应用程序相关的运行时对象
+        Runtime run = Runtime.getRuntime(); // 返回与当前 Java 应用程序相关的运行时对象
         BufferedInputStream in = null;
         BufferedReader inBr = null;
         try {
-            Process p = run.exec(cmd);// 启动另一个进程来执行命令
+            Process p = run.exec(cmd); // 启动另一个进程来执行命令
             in = new BufferedInputStream(p.getInputStream());
             inBr = new BufferedReader(new InputStreamReader(in));
 
@@ -334,9 +253,8 @@ public class SimpleUtil {
                 TbLog.i(lineStr);
                 if (lineStr.contains("sdcard") && lineStr.contains(".android_secure")) {
                     String[] strArray = lineStr.split(" ");
-                    if (strArray != null && strArray.length >= 5) {
-                        String result = strArray[1].replace("/.android_secure", "");
-                        return result;
+                    if (strArray.length >= 5) {
+                        return strArray[1].replace("/.android_secure", "");
                     }
                 }
                 // 检查命令是否执行失败。
@@ -365,9 +283,11 @@ public class SimpleUtil {
 
     /**
      * 获取扩展存储路径，TF卡、U盘
+     *
+     * @return String
      */
     public static String getExternalStorageDirectory() {
-        String dir = new String();
+        String dir = "";
         try {
             Runtime runtime = Runtime.getRuntime();
             Process proc = runtime.exec("mount");
@@ -376,28 +296,26 @@ public class SimpleUtil {
             String line;
             BufferedReader br = new BufferedReader(isr);
             while ((line = br.readLine()) != null) {
-                if (line.contains("secure"))
+                if (line.contains("secure")) {
                     continue;
-                if (line.contains("asec"))
+                }
+                if (line.contains("asec")) {
                     continue;
+                }
 
                 if (line.contains("fat")) {
-                    String columns[] = line.split(" ");
-                    if (columns != null && columns.length > 1) {
+                    String[] columns = line.split(" ");
+                    if (columns.length > 1) {
                         dir = dir.concat(columns[1] + "\n");
                     }
                 } else if (line.contains("fuse")) {
-                    String columns[] = line.split(" ");
-                    if (columns != null && columns.length > 1) {
+                    String[] columns = line.split(" ");
+                    if (columns.length > 1) {
                         dir = dir.concat(columns[1] + "\n");
                     }
                 }
             }
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return dir;
@@ -406,9 +324,11 @@ public class SimpleUtil {
 
     /**
      * 获取扩展存储路径，TF卡、U盘
+     *
+     * @return ArrayList<String>
      */
     public static ArrayList<String> getStorageDirectory() {
-        ArrayList<String> dir = new ArrayList<String>();
+        ArrayList<String> dir = new ArrayList<>();
         try {
             Runtime runtime = Runtime.getRuntime();
             Process proc = runtime.exec("mount");
@@ -423,24 +343,20 @@ public class SimpleUtil {
                     continue;
 
                 if (line.contains("fat")) {
-                    String columns[] = line.split(" ");
-                    if (columns != null && columns.length > 1) {
+                    String[] columns = line.split(" ");
+                    if (columns.length > 1) {
 //                        dir = dir.concat(columns[1] + "\n");
                         dir.add(columns[1]);
                     }
                 } else if (line.contains("fuse")) {
-                    String columns[] = line.split(" ");
-                    if (columns != null && columns.length > 1) {
+                    String[] columns = line.split(" ");
+                    if (columns.length > 1) {
 //                        dir = dir.concat(columns[1] + "\n");
                         dir.add(columns[1]);
                     }
                 }
             }
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return dir;
@@ -454,23 +370,21 @@ public class SimpleUtil {
      * @param newPath String 复制后路径 如：f:/fqf/ff
      */
     public static void copyFolder(String oldPath, String newPath) {
-
         try {
             (new File(newPath)).mkdirs(); //如果文件夹不存在 则建立新文件夹
             File a = new File(oldPath);
             String[] file = a.list();
-            File temp = null;
-            for (int i = 0; i < file.length; i++) {
+            File temp;
+            for (String aFile : file) {
                 if (oldPath.endsWith(File.separator)) {
-                    temp = new File(oldPath + file[i]);
+                    temp = new File(oldPath + aFile);
                 } else {
-                    temp = new File(oldPath + File.separator + file[i]);
+                    temp = new File(oldPath + File.separator + aFile);
                 }
 
                 if (temp.isFile()) {
                     FileInputStream input = new FileInputStream(temp);
-                    FileOutputStream output = new FileOutputStream(newPath + "/" +
-                            (temp.getName()).toString());
+                    FileOutputStream output = new FileOutputStream(newPath + "/" + (temp.getName()));
                     byte[] b = new byte[1024 * 5];
                     int len;
                     while ((len = input.read(b)) != -1) {
@@ -480,14 +394,48 @@ public class SimpleUtil {
                     output.close();
                     input.close();
                 }
-                if (temp.isDirectory()) {//如果是子文件夹
-                    copyFolder(oldPath + "/" + file[i], newPath + "/" + file[i]);
+                if (temp.isDirectory()) { //如果是子文件夹
+                    copyFolder(oldPath + "/" + aFile, newPath + "/" + aFile);
                 }
             }
         } catch (Exception e) {
             System.out.println("复制整个文件夹内容操作出错");
             e.printStackTrace();
 
+        }
+    }
+
+
+    /**
+     * 显示或隐藏 (Invisible) View
+     *
+     * @param isHide false 显示 ，true 隐藏
+     * @param view   view
+     */
+    public static void hideInvisible(boolean isHide, View view) {
+        if (null != view) {
+            if (isHide) {
+                view.setVisibility(View.INVISIBLE);
+                view.setOnClickListener(null);
+            } else {
+                view.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    /**
+     * 显示或隐藏 (Gone) View
+     *
+     * @param isHide false 显示 ，true 隐藏
+     * @param view   view
+     */
+    public static void hideGone(boolean isHide, View view) {
+        if (null != view) {
+            if (isHide) {
+                view.setVisibility(View.GONE);
+            } else {
+                view.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

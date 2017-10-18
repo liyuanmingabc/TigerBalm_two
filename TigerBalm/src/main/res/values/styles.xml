@@ -9,6 +9,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textSize">@dimen/text_size_default</item>
+
+
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
     </style>
 
     <!-- 6.0以上支持修改状态栏字体颜色 下面的属性打开就行放在style里面-->

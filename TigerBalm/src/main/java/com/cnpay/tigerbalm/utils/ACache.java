@@ -38,12 +38,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 缓存工具
- * 
- * 类 名: ACache 修 改 记 录: // 修改历史记录，包括修改日期、修改者及修改内容 版 权 所 有: 版权所有(C)2010-2014 公 司:
- * 深圳华夏通宝信息技术有限公司
- * 
- * @version V1.0
- * @author liyuanming
  *
  */
 public class ACache {

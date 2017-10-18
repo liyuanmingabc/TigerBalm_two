@@ -10,22 +10,14 @@ import java.io.InputStreamReader;
 import java.nio.channels.FileChannel;
 
 /**
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      FileUtil
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公             司:     深圳华夏通宝信息技术有限公司
- *
- * @author liyuanming
- * @version V1.0
  */
 public class FileUtil {
 
     /**
-     * 默认数据
+     * 读取文件数据
      *
-     * @param filePath
-     * @return
+     * @param filePath filePath
+     * @return String
      */
     public static String readJSONFile(String filePath) {
         String str = "";
@@ -35,9 +27,9 @@ public class FileUtil {
             if (file.isFile() && file.exists()) { //判断文件是否存在
                 FileInputStream fileInputStream = new FileInputStream(file);
                 InputStreamReader read = new InputStreamReader(
-                        fileInputStream, encoding);//考虑到编码格式
+                        fileInputStream, encoding); //考虑到编码格式
                 BufferedReader bufferedReader = new BufferedReader(read);
-                String lineTxt = null;
+                String lineTxt;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
                     str += lineTxt;
                 }
@@ -61,7 +53,6 @@ public class FileUtil {
      * @param s 源文件
      * @param t 复制到的新文件
      */
-
     public static void fileChannelCopy(File s, File t) {
         FileInputStream fi = null;
         FileOutputStream fo = null;
@@ -70,9 +61,9 @@ public class FileUtil {
         try {
             fi = new FileInputStream(s);
             fo = new FileOutputStream(t);
-            in = fi.getChannel();//得到对应的文件通道
-            out = fo.getChannel();//得到对应的文件通道
-            in.transferTo(0, in.size(), out);//连接两个通道，并且从in通道读取，然后写入out通道
+            in = fi.getChannel(); //得到对应的文件通道
+            out = fo.getChannel(); //得到对应的文件通道
+            in.transferTo(0, in.size(), out); //连接两个通道，并且从in通道读取，然后写入out通道
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -97,10 +88,11 @@ public class FileUtil {
 
 
     /**
-     * 保存最新的文件数据
+     * 保存 文件数据
      *
-     * @param filePath
-     * @param data
+     * @param filePath 文件名称
+     * @param dir      文件路径
+     * @param data     数据
      */
     public static void saveFile(String filePath, String dir, String data) {
         try {
@@ -119,6 +111,75 @@ public class FileUtil {
         } catch (Exception e) {
             TbLog.i("保存文件出错");
             e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 删除单个文件
+     *
+     * @param filePath 被删除文件的文件名
+     * @return 文件删除成功返回true，否则返回false
+     */
+    private static boolean deleteFile(String filePath) {
+        File file = new File(filePath);
+        return file.isFile() && file.exists() && file.delete();
+    }
+
+    /**
+     * 删除文件夹以及目录下的文件
+     *
+     * @param filePath 被删除目录的文件路径
+     * @return 目录删除成功返回true，否则返回false
+     */
+    private static boolean deleteDirectory(String filePath) {
+        boolean flag = false;
+        //如果filePath不以文件分隔符结尾，自动添加文件分隔符
+        if (!filePath.endsWith(File.separator)) {
+            filePath = filePath + File.separator;
+        }
+        File dirFile = new File(filePath);
+        if (!dirFile.exists() || !dirFile.isDirectory()) {
+            return false;
+        }
+        flag = true;
+        File[] files = dirFile.listFiles();
+        //遍历删除文件夹下的所有文件(包括子目录)
+        for (File file : files) {
+            if (file.isFile()) {
+                //删除子文件
+                flag = deleteFile(file.getAbsolutePath());
+                if (!flag) break;
+            } else {
+                //删除子目录
+                flag = deleteDirectory(file.getAbsolutePath());
+                if (!flag) break;
+            }
+        }
+        if (!flag) return false;
+        //删除当前空目录
+        return dirFile.delete();
+    }
+
+    /**
+     * 根据路径删除指定的目录或文件，无论存在与否
+     *
+     * @param filePath 要删除的目录或文件
+     * @return 删除成功返回 true，否则返回 false。
+     */
+    public static boolean deleteFolder(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return false;
+        } else {
+            TbLog.e("-----" + file.isFile());
+            if (file.isFile()) {
+                // 为文件时调用删除文件方法
+                return deleteFile(filePath);
+            } else {
+                // 为目录时调用删除目录方法
+                return deleteDirectory(filePath);
+            }
         }
     }
 }

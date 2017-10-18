@@ -1,1 +1,1 @@
-include ':app', ':TigerBalm'
+include ':app', ':TigerBalm', ':refresh-layout', ':refresh-header'

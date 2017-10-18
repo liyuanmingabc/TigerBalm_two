@@ -11,22 +11,14 @@ import android.telephony.TelephonyManager;
 import java.util.List;
 
 /**
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      WifiUtil
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公            司:     深圳华夏通宝信息技术有限公司
- *
- * @author yuyucheng
- * @version V1.0
  */
 public class WifiUtil {
 
     /**
      *
      * 描述：打开wifi.
-     * @param context
-     * @param enabled
+     * @param context context
+     * @param enabled enabled
      */
     public static void setWifiEnabled(Context context,boolean enabled){
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -40,10 +32,9 @@ public class WifiUtil {
     /**
      *
      * 描述：是否有网络连接.
-     * @param context
+     * @param context context
      */
     public static boolean isConnectivity(Context context) {
-
         ConnectivityManager connectivityManager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         TelephonyManager telephonyManager = (TelephonyManager) context

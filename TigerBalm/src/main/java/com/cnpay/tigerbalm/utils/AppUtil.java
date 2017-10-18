@@ -25,46 +25,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * 名称：AppUtil.java
- * 描述：应用工具类.
- *
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      AppUtil
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公            司:     深圳华夏通宝信息技术有限公司
- *
- * @author yuyucheng
- * @version V1.0
  */
 public class AppUtil {
-    /**
-     * 描述：打开并安装文件.
-     *
-     * @param context the context
-     * @param file apk文件路径
-     */
-    public static void installApk(Context context, File file) {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),
-                "application/vnd.android.package-archive");
-        context.startActivity(intent);
-    }
-
-    /**
-     * 描述：卸载程序.
-     *
-     * @param context the context
-     * @param packageName 包名
-     */
-    public static void uninstallApk(Context context,String packageName) {
-        Intent intent = new Intent(Intent.ACTION_DELETE);
-        Uri packageURI = Uri.parse("package:" + packageName);
-        intent.setData(packageURI);
-        context.startActivity(intent);
-    }
 
 
     /**

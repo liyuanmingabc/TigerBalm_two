@@ -4,17 +4,11 @@ import java.math.BigDecimal;
 
 /**
  * 精确运算
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      Arith
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公             司:     深圳华夏通宝信息技术有限公司
- *
- * @author liyuanming
- * @version V1.0
  */
-public class Arith {
-    //默认除法运算精度
+public final class Arith {
+    /**
+     * 默认除法运算精度
+     */
     private static final int DEF_DIV_SCALE = 10;
 
     //这个类不能实例化

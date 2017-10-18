@@ -1,14 +1,18 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+
+Properties properties = new Properties()
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 7
-        versionName "1.0.6"
+        versionCode properties.getProperty("version.versionCode")
+        versionName properties.getProperty("version.versionName")
     }
     buildTypes {
         release {
@@ -17,41 +21,54 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_6
-        targetCompatibility JavaVersion.VERSION_1_6
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
-//    compile 'com.android.support:percent:23.2.0'
-
+    //    compile 'com.android.support:percent:23.2.0'
     //图片加载 (http://bumptech.github.io/glide/javadocs/latest/index.html)
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    /* 图片压缩(https://github.com/zetbaitsu/Compressor#i-want-custom-compressor) Create in 2017/10/13 16:21  Author: liyuanming */
+    compile 'id.zelory:compressor:2.1.0'
     //注解-findById
-//    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.google.code.gson:gson:2.6.2'
-
+    //    compile 'com.jakewharton:butterknife:7.0.0'
+    compile 'com.google.code.gson:gson:2.8.0'
     //加载样式
     //DIALOG (http://www.csdn123.com/html/topnews201408/59/9159.htm)
-    compile 'com.victor:lib:1.0.1'
-    compile 'me.drakeet.materialdialog:library:1.2.8'
-
+    //    compile 'com.victor:lib:1.0.1'
+    //    compile 'me.drakeet.materialdialog:library:1.2.8'
     //网络请求
-//        compile 'com.squareup.okhttp3:okhttp:3.0.1'
-    compile 'com.yolanda.nohttp:nohttp:1.0.0'
-
-    //DB
-    compile files('libs/dblib.jar')
+    //        compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    //    compile 'com.yolanda.nohttp:nohttp:1.0.7'
+    compile 'com.zhy:okhttputils:2.6.2'
     //android选择器,地址时间...
-    compile 'cn.qqtheme.framework:AndroidPicker:latest.integration'
-
-
-
-
+    //    compile 'cn.qqtheme.framework:AndroidPicker:latest.integration'
+    //6.0 权限
+    //    compile 'com.mylhyl:acp:1.1.7'
+    // 底部 view 动画样式
+    compile 'com.wang.avi:library:1.0.1'
+    // 左右滑动菜单recyclerview
+//    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
+    /* 上拉下拉加载样式 Create in 2017/10/18 16:29  Author: liyuanming */
+    compile project(':refresh-header')
+    compile project(':refresh-layout')
 }
-apply from: "bintrayUpload.gradle"
+publish {
+    userOrg = 'liyuanming'      //bintray注册的用户名
+    groupId = 'com.cnpay'         //compile引用时的第1部分groupId
+    artifactId = 'TigerBalm'     //compile引用时的第2部分项目名
+    publishVersion = properties.getProperty("version.versionName")    //compile引用时的第3部分版本号
+    desc = 'This is a rxbus same of eventbus extend library '
+    website = 'https://github.com/liyuanmingabc/TigerBalm_two'
+}

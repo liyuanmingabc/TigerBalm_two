@@ -12,21 +12,15 @@ import com.cnpay.tigerbalm.R;
 /**
  * 名称：ToastUtil.java
  * 描述：Toast工具类.
- *
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      ToastUtil
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公            司:     深圳华夏通宝信息技术有限公司
- *
- * @author yuyucheng
  * @version V1.0
  */
 public class ToastUtil {
     /** 上下文. */
     //private static Context mContext = null;
 
-    /** 显示Toast. */
+    /**
+     * 显示Toast.
+     */
     public static final int SHOW_TOAST = 0;
 
     /**
@@ -50,37 +44,40 @@ public class ToastUtil {
 
     /**
      * 描述：Toast提示文本.
-     * @param text  文本
+     *
+     * @param text 文本
      */
-    public static void showToast(Context context,String text) {
+    public static void showToast(Context context, String text) {
         //mContext = context;
-        if(!StrUtil.isEmpty(text) && !text.contains("check the network") && !text.contains("java.lang.String")){
-            Toast.makeText(context,text, Toast.LENGTH_SHORT).show();
+        if (!StrUtil.isEmpty(text) && !text.contains("check the network") && !text.contains("java.lang.String")) {
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
         }
 
     }
 
     /**
      * 描述：Toast提示文本.
-     * @param resId  文本的资源ID
+     *
+     * @param resId 文本的资源ID
      */
-    public static void showToast(Context context,int resId) {
+    public static void showToast(Context context, int resId) {
         //mContext = context;
-        Toast.makeText(context,""+context.getResources().getText(resId), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "" + context.getResources().getText(resId), Toast.LENGTH_SHORT).show();
     }
 
 
     /**
      * 自定义中间吐司
-     * @param context   context
-     * @param text      信息
+     *
+     * @param context context
+     * @param text    信息
      */
-    public static  void  showCenterToast(Context context,String text) {
-        if(!StrUtil.isEmpty(text) && !text.contains("check the network") && !text.contains("java.lang.String")) {
+    public static void showCenterToast(Context context, String text) {
+        if (!StrUtil.isEmpty(text) && !text.contains("check the network") && !text.contains("java.lang.String")) {
             View view = LayoutInflater.from(context).inflate(R.layout.toast_view, null);
             TextView infoView = (TextView) view.findViewById(R.id.view_Toast_text);
             infoView.setText(text);
-            Toast toast = new Toast(context);
+            Toast toast = SingleToast.getInstance(context);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setView(view);
@@ -125,4 +122,22 @@ public class ToastUtil {
         msg.setData(bundle);
         baseHandler.sendMessage(msg);
     }*/
+}
+
+class SingleToast {
+    private static Toast mToast;
+
+    /**
+     * 双重锁定，使用同一个Toast实例
+     */
+    public static Toast getInstance(Context context) {
+        if (mToast == null) {
+            synchronized (SingleToast.class) {
+                if (mToast == null) {
+                    mToast = new Toast(context);
+                }
+            }
+        }
+        return mToast;
+    }
 }

@@ -1,0 +1,1 @@
+gradlew clean build bintrayUpload -PbintrayUser=liyuanming -PbintrayKey=f077bd7f52a1494a5860f8800492068c6b79f88b -PdryRun=false

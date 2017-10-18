@@ -1,3 +1,4 @@
+/*
 package com.cnpay.tigerbalm_20.glide;
 
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.cnpay.tigerbalm_20.R;
 
 import java.util.ArrayList;
 
+*/
 /**
  * 包            名:      com.cnpay.tigerbalm_20.glide
  * 类            名:      GlideActivity
@@ -23,14 +25,19 @@ import java.util.ArrayList;
  * @author liyuanming
  * @version V1.0
  * @date 2016/4/27
- */
+ *//*
+
 public class GlideActivity extends AppCompatActivity implements LoadResultCallBack {
-   /* private ImageView image1;
-    private ImageView image2;*/
+   */
+/* private ImageView image1;
+    private ImageView image2;*//*
 
-   /* private ListView listView;
 
-    private GlideAdapter glideAdapter;*/
+   */
+/* private ListView listView;
+
+    private GlideAdapter glideAdapter;*//*
+
 
     private AutoLoadRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -46,7 +53,8 @@ public class GlideActivity extends AppCompatActivity implements LoadResultCallBa
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
 
-        /*image1 = (ImageView) findViewById(R.id.image_1);
+        */
+/*image1 = (ImageView) findViewById(R.id.image_1);
         image2 = (ImageView) findViewById(R.id.image_2);
         Glide.with(this)
                 .load("http://img02.tooopen.com/images/20160408/tooopen_sy_158653365484.jpg")
@@ -57,12 +65,17 @@ public class GlideActivity extends AppCompatActivity implements LoadResultCallBa
                 .load("http://img02.tooopen.com/images/20160408/tooopen_sy_158653365484.jpg")
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
-                .into(image2);*/
-       /* glideAdapter = new GlideAdapter(this, getData());
-        listView.setAdapter(glideAdapter);*/
+                .into(image2);*//*
+
+       */
+/* glideAdapter = new GlideAdapter(this, getData());
+        listView.setAdapter(glideAdapter);*//*
 
 
-        /**下拉*/
+
+        */
+/**下拉*//*
+
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -75,7 +88,9 @@ public class GlideActivity extends AppCompatActivity implements LoadResultCallBa
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setOnPauseListenerParams(false, true);
-        /**加载更多*/
+        */
+/**加载更多*//*
+
         recyclerView.setLoadMoreListener(new LoadMoreListener() {
             @Override
             public void loadMore() {
@@ -111,3 +126,4 @@ public class GlideActivity extends AppCompatActivity implements LoadResultCallBa
         }
     }
 }
+*/

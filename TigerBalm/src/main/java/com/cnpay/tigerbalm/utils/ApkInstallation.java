@@ -15,18 +15,14 @@ import java.nio.charset.Charset;
 /**
  * APK安装/卸载
  * 首先判断是否有root权限，如果有利用静默方式，否则利用意图实现app安装和卸载操作。
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      ApkInstallation
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公             司:     深圳华夏通宝信息技术有限公司
- *
- * @author liyuanming
- * @version V1.0
  */
 public class ApkInstallation {
     /**
      * 描述: 安装
+     *
+     * @param apkPath apkPath
+     * @param context context
+     * @return boolean
      */
     public static boolean install(String apkPath, Context context) {
         // 先判断手机是否有root权限
@@ -50,6 +46,10 @@ public class ApkInstallation {
 
     /**
      * 描述: 卸载
+     *
+     * @param packageName packageName
+     * @param context     context
+     * @return boolean
      */
     public static boolean uninstall(String packageName, Context context) {
         if (hasRootPerssion()) {
@@ -66,15 +66,17 @@ public class ApkInstallation {
 
     /**
      * 判断手机是否有root权限
+     *
+     * @return boolean
      */
     private static boolean hasRootPerssion() {
-        PrintWriter PrintWriter = null;
+        PrintWriter printWriter;
         Process process = null;
         try {
             process = Runtime.getRuntime().exec("su");
-            PrintWriter = new PrintWriter(process.getOutputStream());
-            PrintWriter.flush();
-            PrintWriter.close();
+            printWriter = new PrintWriter(process.getOutputStream());
+            printWriter.flush();
+            printWriter.close();
             int value = process.waitFor();
             return returnResult(value);
         } catch (Exception e) {
@@ -89,6 +91,9 @@ public class ApkInstallation {
 
     /**
      * 静默安装
+     *
+     * @param apkPath apkPath
+     * @return boolean
      */
     private static boolean clientInstall(String apkPath) {
         boolean result = false;
@@ -136,6 +141,9 @@ public class ApkInstallation {
 
     /**
      * 静默卸载
+     *
+     * @param packageName packageName
+     * @return boolean
      */
     private static boolean clientUninstall(String packageName) {
         boolean result = false;
@@ -183,8 +191,12 @@ public class ApkInstallation {
 
     /**
      * 启动app
-     * com.exmaple.client/.MainActivity
-     * com.exmaple.client/com.exmaple.client.MainActivity
+     * com.exmaple.client/.BtbRecyclerMainActivity
+     * com.exmaple.client/com.exmaple.client.BtbRecyclerMainActivity
+     *
+     * @param packageName  packageName
+     * @param activityName activityName
+     * @return boolean
      */
     public static boolean startApp(String packageName, String activityName) {
         String cmd = "am start -n " + packageName + "/" + activityName + " \n";
@@ -203,15 +215,28 @@ public class ApkInstallation {
         return false;
     }
 
-
+    /**
+     * @param value value
+     * @return boolean
+     */
     private static boolean returnResult(int value) {
-        // 代表成功
-        if (value == 0) {
+        /*switch (value) {
+            case 0:
+                return true;
+            case 1:
+                return false;
+            default:
+                return false;
+        }*/
+
+        return value == 0;
+
+        /*if (value == 0) { // 代表成功
             return true;
         } else if (value == 1) { // 失败
             return false;
         } else { // 未知情况
             return false;
-        }
+        }*/
     }
 }

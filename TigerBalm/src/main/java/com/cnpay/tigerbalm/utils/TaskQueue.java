@@ -1,16 +1,5 @@
 package com.cnpay.tigerbalm.utils;
 
-/**
- * 包            名:      com.cnpay.tigerbalm.utils
- * 类            名:      TaskQueue
- * 修 改 记 录:     // 修改历史记录，包括修改日期、修改者及修改内容
- * 版 权 所 有:     版权所有(C)2010-2015
- * 公            司:     深圳华夏通宝信息技术有限公司
- *
- * @author yuyucheng
- * @version V1.0
- * @date 2016/1/19 0019
- */
 
 import com.cnpay.tigerbalm.utils.task.TaskItem;
 import com.cnpay.tigerbalm.utils.task.TaskListListener;
@@ -25,21 +14,38 @@ import java.util.concurrent.Executor;
 /**
  * 名称：TaskQueue.java
  * 描述：线程队列.
- *
  */
-
-public class TaskQueue extends Thread{
-    /** 等待执行的任务. 用 LinkedList增删效率高*/
+public class TaskQueue extends Thread {
+    /**
+     * 存放返回的任务结果.
+     */
+    private static HashMap<String, Object> result;
+    /**
+     * 等待执行的任务. 用 LinkedList增删效率高
+     */
     private static LinkedList<TaskItem> mAbTaskItemList = null;
 
-    /** 单例对象. */
+    /**
+     * 单例对象.
+     */
     private static TaskQueue abTaskQueue = null;
 
-    /** 停止的标记. */
+    /**
+     * 停止的标记.
+     */
     private boolean mQuit = false;
 
-    /**  存放返回的任务结果. */
-    private static HashMap<String,Object> result;
+    /**
+     * 构造执行线程队列.
+     */
+    public TaskQueue() {
+        mQuit = false;
+        mAbTaskItemList = new LinkedList<>();
+        result = new HashMap<>();
+        //从线程池中获取
+        Executor mExecutorService = ThreadFactory.getExecutorService();
+        mExecutorService.execute(this);
+    }
 
     /** 执行完成后的消息句柄. */
     /*private static Handler handler = new Handler() {
@@ -69,17 +75,6 @@ public class TaskQueue extends Thread{
         return abTaskQueue;
     }
 
-    /**
-     * 构造执行线程队列.
-     */
-    public TaskQueue() {
-        mQuit = false;
-        mAbTaskItemList = new LinkedList<TaskItem>();
-        result = new HashMap<String,Object>();
-        //从线程池中获取
-        Executor mExecutorService  = ThreadFactory.getExecutorService();
-        mExecutorService.execute(this);
-    }
 
     /**
      * 开始一个执行任务.
@@ -93,11 +88,12 @@ public class TaskQueue extends Thread{
 
     /**
      * 开始一个执行任务并清除原来队列.
-     * @param item 执行单位
+     *
+     * @param item   执行单位
      * @param cancel 清空之前的任务
      */
-    public void execute(TaskItem item,boolean cancel) {
-        if(cancel){
+    public void execute(TaskItem item, boolean cancel) {
+        if (cancel) {
             cancel(true);
         }
         addTaskItem(item);
@@ -125,27 +121,27 @@ public class TaskQueue extends Thread{
      */
     @Override
     public void run() {
-        while(!mQuit) {
+        while (!mQuit) {
             try {
-                while(mAbTaskItemList.size() > 0){
+                while (mAbTaskItemList.size() > 0) {
 
-                    TaskItem item  = mAbTaskItemList.remove(0);
+                    TaskItem item = mAbTaskItemList.remove(0);
                     //定义了回调
                     if (item.getListener() != null) {
-                        if(item.getListener() instanceof TaskListListener){
-                            result.put(item.toString(), ((TaskListListener)item.getListener()).getList());
-                        }else if(item.getListener() instanceof TaskObjectListener){
-                            result.put(item.toString(), ((TaskObjectListener)item.getListener()).getObject());
-                        }else{
+                        if (item.getListener() instanceof TaskListListener) {
+                            result.put(item.toString(), ((TaskListListener) item.getListener()).getList());
+                        } else if (item.getListener() instanceof TaskObjectListener) {
+                            result.put(item.toString(), ((TaskObjectListener) item.getListener()).getObject());
+                        } else {
                             item.getListener().get();
                             result.put(item.toString(), null);
                         }
 
-                        if(item.getListener() instanceof TaskListListener){
-                            ((TaskListListener)item.getListener()).update((List<?>) result.get(item.toString()));
-                        }else if(item.getListener() instanceof TaskObjectListener){
-                            ((TaskObjectListener)item.getListener()).update(result.get(item.toString()));
-                        }else{
+                        if (item.getListener() instanceof TaskListListener) {
+                            ((TaskListListener) item.getListener()).update((List<?>) result.get(item.toString()));
+                        } else if (item.getListener() instanceof TaskObjectListener) {
+                            ((TaskObjectListener) item.getListener()).update(result.get(item.toString()));
+                        } else {
                             item.getListener().update();
                         }
                         result.remove(item.toString());
@@ -156,18 +152,18 @@ public class TaskQueue extends Thread{
                     }
 
                     //停止后清空
-                    if(mQuit){
+                    if (mQuit) {
                         mAbTaskItemList.clear();
                         return;
                     }
                 }
                 try {
                     //没有执行项时等待
-                    synchronized(this) {
+                    synchronized (this) {
                         this.wait();
                     }
                 } catch (InterruptedException e) {
-                    TbLog.e("AbTaskQueue"+"收到线程中断请求");
+                    TbLog.e("AbTaskQueue" + "收到线程中断请求");
                     e.printStackTrace();
                     //被中断的是退出就结束，否则继续
                     if (mQuit) {
@@ -187,12 +183,12 @@ public class TaskQueue extends Thread{
      *
      * @param mayInterruptIfRunning the may interrupt if running
      */
-    public void cancel(boolean mayInterruptIfRunning){
-        mQuit  = true;
-        if(mayInterruptIfRunning){
+    public void cancel(boolean mayInterruptIfRunning) {
+        mQuit = true;
+        if (mayInterruptIfRunning) {
             interrupted();
         }
-        abTaskQueue  = null;
+        abTaskQueue = null;
     }
 
 }

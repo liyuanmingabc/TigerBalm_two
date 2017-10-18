@@ -6,16 +6,25 @@ import android.util.Log;
 /**
  * LOG 日志
  */
-public class TbLog {
-
-    public static String customTagPrefix = "";
-
-    /** 默认显示 LOGO*/
+public final class TbLog {
+    /**
+     * 默认显示 LOGO
+     */
     public static boolean isDebug = true;
+    /**
+     * customTagPrefix
+     */
+    private static String customTagPrefix = "";
+
 
     private TbLog() {
     }
 
+    /**
+     * generateTag
+     *
+     * @return String
+     */
     private static String generateTag() {
         StackTraceElement caller = new Throwable().getStackTrace()[2];
         String tag = "%s.%s(L:%d)";
@@ -60,7 +69,8 @@ public class TbLog {
 
         Log.i(tag, content);
     }
-    public static void i(String tag,String content) {
+
+    public static void i(String tag, String content) {
         if (!isDebug) return;
 
         Log.i(tag, content);

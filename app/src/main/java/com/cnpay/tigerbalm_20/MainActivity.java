@@ -2,15 +2,7 @@ package com.cnpay.tigerbalm_20;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
-import com.cnpay.tigerbalm.utils.SimpleUtil;
-import com.cnpay.tigerbalm_20.db.User;
-
-import java.io.File;
-
-import xutils.db.DbManager;
-import xutils.ex.DbException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void save(View v) throws DbException {
+    /*public void save(View v) throws DbException {
         User u = new User();
         u.setAge("100");
         u.setUserId("1");
@@ -46,5 +38,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         return xutils.x.getDb(config);
-    }
+    }*/
 }
