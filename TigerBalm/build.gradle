@@ -1,9 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
-
-Properties properties = new Properties()
-
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.0'
@@ -11,13 +8,13 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode properties.getProperty("version.versionCode")
-        versionName properties.getProperty("version.versionName")
+        versionCode 17
+        versionName "1.1.7"
     }
     buildTypes {
         release {
             minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -62,13 +59,12 @@ dependencies {
 //    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
     /* 上拉下拉加载样式 Create in 2017/10/18 16:29  Author: liyuanming */
     compile project(':refresh-header')
-    compile project(':refresh-layout')
 }
 publish {
     userOrg = 'liyuanming'      //bintray注册的用户名
     groupId = 'com.cnpay'         //compile引用时的第1部分groupId
     artifactId = 'TigerBalm'     //compile引用时的第2部分项目名
-    publishVersion = properties.getProperty("version.versionName")    //compile引用时的第3部分版本号
+    publishVersion = android.defaultConfig.versionName    //compile引用时的第3部分版本号
     desc = 'This is a rxbus same of eventbus extend library '
     website = 'https://github.com/liyuanmingabc/TigerBalm_two'
 }
