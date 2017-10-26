@@ -30,6 +30,9 @@ public class OkHttpNetUtil {
 
     /**
      * 双重锁定，使用同一个 DatePicker 实例
+     *
+     * @param mContext mcontext
+     * @return OkHttpNetUtil
      */
     public static OkHttpNetUtil getInstance(Context mContext) {
         if (okHttpNetUtil == null) {

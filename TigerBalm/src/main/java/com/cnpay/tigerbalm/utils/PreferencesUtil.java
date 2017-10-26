@@ -300,7 +300,7 @@ public class PreferencesUtil {
      * 把字符串转换成集合
      *
      * @param weatherListString WeatherListString
-     * @return Map<String, Object>
+     * @return Map
      * @throws Exception Exception
      */
     @SuppressWarnings("unchecked")

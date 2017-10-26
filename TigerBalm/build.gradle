@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 17
         versionName "1.1.7"
     }
@@ -29,10 +29,10 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:cardview-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:support-v4:25.0.0'
     //    compile 'com.android.support:percent:23.2.0'
     //图片加载 (http://bumptech.github.io/glide/javadocs/latest/index.html)
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -56,15 +56,23 @@ dependencies {
     // 底部 view 动画样式
     compile 'com.wang.avi:library:1.0.1'
     // 左右滑动菜单recyclerview
-//    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
+    //    compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
     /* 上拉下拉加载样式 Create in 2017/10/18 16:29  Author: liyuanming */
-    compile project(':refresh-header')
+    compile 'com.android.support:support-annotations:25.0.0'
+    compile 'com.android.support:support-compat:25.0.0'
+    compile 'com.android.support:design:25.0.0'
 }
 publish {
-    userOrg = 'liyuanming'      //bintray注册的用户名
-    groupId = 'com.cnpay'         //compile引用时的第1部分groupId
-    artifactId = 'TigerBalm'     //compile引用时的第2部分项目名
-    publishVersion = android.defaultConfig.versionName    //compile引用时的第3部分版本号
-    desc = 'This is a rxbus same of eventbus extend library '
+//    repoName = 'TB'  //仓库名
+    userOrg = 'liyuanming'  //bintray注册的用户名
+    groupId = 'com.cnpay'   //compile引用时的第1部分groupId
+    artifactId = 'TigerBalm'    //compile引用时的第2部分项目名
+    version = android.defaultConfig.versionName
+//    publishVersion = '1.1.7'  //compile引用时的第3部分版本号
+//    version {
+//        name = publishVersion
+//        vcsTag = publishVersion
+//    }
+    description = 'This is a rxbus same of eventbus extend library '
     website = 'https://github.com/liyuanmingabc/TigerBalm_two'
 }

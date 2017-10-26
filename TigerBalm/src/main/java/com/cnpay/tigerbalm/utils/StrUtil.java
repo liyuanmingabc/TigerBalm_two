@@ -673,7 +673,7 @@ public class StrUtil {
      * 剪切字符串
      *
      * @param birthday birthday
-     * @return List<String>
+     * @return List
      */
     public static List<String> stringToArray(String birthday) {
         String[] split = birthday.split("-");

@@ -12,6 +12,7 @@ import com.cnpay.tigerbalm.R;
 /**
  * 名称：ToastUtil.java
  * 描述：Toast工具类.
+ *
  * @version V1.0
  */
 public class ToastUtil {
@@ -45,7 +46,8 @@ public class ToastUtil {
     /**
      * 描述：Toast提示文本.
      *
-     * @param text 文本
+     * @param context context
+     * @param text    文本
      */
     public static void showToast(Context context, String text) {
         //mContext = context;
@@ -58,7 +60,8 @@ public class ToastUtil {
     /**
      * 描述：Toast提示文本.
      *
-     * @param resId 文本的资源ID
+     * @param context context
+     * @param resId   文本的资源ID
      */
     public static void showToast(Context context, int resId) {
         //mContext = context;

@@ -119,7 +119,6 @@ public class GsonUtils {
      *
      * @param jsonString jsonString
      * @param cls cls
-     *            @param <T> <T>
      * @return cls
      ************************************************************/
     public static <T> T getPerson(String jsonString, Class<T> cls) {
@@ -136,8 +135,6 @@ public class GsonUtils {
     /**
      * @param jsonString jsonString
      * @param cls        cls
-     * @param <T>        <T>
-     * @return <T> List<T>
      */
     public static <T> List<T> getPersons(String jsonString, Class<T> cls) {
         List<T> list = new ArrayList<T>();
@@ -153,10 +150,10 @@ public class GsonUtils {
 
     /**
      * @param jsonString jsonString
-     * @return List<String>
+     * @return List
      */
     public static List<String> getList(String jsonString) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             list = createGson().fromJson(jsonString, new TypeToken<List<String>>() {
             }.getType());
@@ -169,7 +166,7 @@ public class GsonUtils {
 
     /**
      * @param jsonString jsonString
-     * @return List<Map<String, Object>>
+     * @return List
      */
     public static List<Map<String, Object>> listKeyMap(String jsonString) {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

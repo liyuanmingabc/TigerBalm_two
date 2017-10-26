@@ -325,7 +325,7 @@ public class SimpleUtil {
     /**
      * 获取扩展存储路径，TF卡、U盘
      *
-     * @return ArrayList<String>
+     * @return ArrayList
      */
     public static ArrayList<String> getStorageDirectory() {
         ArrayList<String> dir = new ArrayList<>();

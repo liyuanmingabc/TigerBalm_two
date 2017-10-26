@@ -21,10 +21,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 /**
  * Created by allen on 2017/4/26.
  * 带动画效果的按钮
- * <com.allen.androidcustomview.widget.AnimationButton
+ * //com.allen.androidcustomview.widget.AnimationButton
  * android:id="@+id/animation_btn"
  * android:layout_width="200dp"
- * android:layout_height="50dp" />
+ * android:layout_height="50dp" /
  * 实现 监听启动动画
  * animationButton.setAnimationButtonListener(new AnimationButton.AnimationButtonListener() {
  * public void onClickListener() {
